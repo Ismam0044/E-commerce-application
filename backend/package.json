@@ -23,6 +23,7 @@
     "dotenv": "^17.4.2",
     "drizzle-orm": "^0.45.2",
     "express": "^5.2.1",
+    "node-cron": "^4.6.0",
     "pg": "^8.22.0",
     "standardwebhooks": "^1.0.0",
     "stream-chat": "^9.50.0",
