@@ -7,6 +7,8 @@ import { getEnv } from "./lib/env";
 import fs from "node:fs";
 import path from "node:path";
 import keepAliveCron from "./lib/cron";
+import * as Sentry from "@sentry/node";
+import { sentryClerkUserMiddleware } from "./middleware/sentryClerkUser";
 
 import productRouter from "./routes/productRouter";
 import meRouter from "./routes/meRouter";
@@ -18,10 +20,25 @@ const env = getEnv();
 const app = express();
 const rawJson = express.raw({ type: "application/json", limit: "1mb" });
 
+
+app.use(express.json());
+app.use(clerkMiddleware());
+app.use(sentryClerkUserMiddleware);
 app.use(cors());
 
-// Webhook route uses rawJson instead of express.json()
-// so it must be registered before app.use(express.json()).
+Sentry.setupExpressErrorHandler(app);
+
+app.use(
+  (_err: unknown, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
+    const sentryId = (res as express.Response & { sentry?: string }).sentry;
+
+    res.status(500).json({
+      error: "Internal server error",
+      ...(sentryId !== undefined && { sentryId }),
+    });
+  },
+);
+
 app.post("/webhooks/clerk", rawJson, (req, res) => {
   void clerkWebhookHandler(req, res);
 });
