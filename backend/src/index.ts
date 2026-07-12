@@ -50,8 +50,6 @@ app.post("/webhooks/polar", rawJson, (req, res) => {
 app.get("/health", (_req, res) => {
   res.json({ok:true});
 });
-app.use(express.json());
-app.use(clerkMiddleware());
 const publicDir = path.join(process.cwd(), "public");
 if (fs.existsSync(publicDir)) {
   app.use(express.static(publicDir));
@@ -70,10 +68,10 @@ if (fs.existsSync(publicDir)) {
     res.sendFile(path.join(publicDir, "index.html"), (err) => next(err));
   });
 }
-app.use("/api/me",meRouter)
-app.use("api/products",productRouter)
-app.use("api/stream",streamRouter)
-app.use("/api/checkout",checkoutRouter);
+app.use("/api/me", meRouter);
+app.use("/api/products", productRouter);
+app.use("/api/stream", streamRouter);
+app.use("/api/checkout", checkoutRouter);
 
 app.listen(env.PORT, () => {
   console.log("Listening on port:", env.PORT);
