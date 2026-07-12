@@ -15,6 +15,10 @@ import meRouter from "./routes/meRouter";
 import streamRouter from "./routes/streamRouter";
 import checkoutRouter from "./routes/checkoutRouter";
 import { polarWebhookHandler } from "./webhooks/polar";
+import adminRouter from "./routes/adminRouter.js";
+import orderRouter from "./routes/orderRouter.js";
+
+
 
 const env = getEnv();
 const app = express();
@@ -72,6 +76,9 @@ app.use("/api/me", meRouter);
 app.use("/api/products", productRouter);
 app.use("/api/stream", streamRouter);
 app.use("/api/checkout", checkoutRouter);
+app.use("/api/admin", adminRouter);
+app.use("/api/orders", orderRouter);
+
 
 app.listen(env.PORT, () => {
   console.log("Listening on port:", env.PORT);
