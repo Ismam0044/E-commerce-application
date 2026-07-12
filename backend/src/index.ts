@@ -7,6 +7,11 @@ import { getEnv } from "./lib/env";
 import fs from "node:fs";
 import path from "node:path";
 import keepAliveCron from "./lib/cron";
+
+import productRouter from "./routes/productRouter";
+import meRouter from "./routes/meRouter";
+import streamRouter from "./routes/streamRouter";
+
 const env = getEnv();
 const app = express();
 const rawJson = express.raw({ type: "application/json", limit: "1mb" });
@@ -41,7 +46,9 @@ if (fs.existsSync(publicDir)) {
     res.sendFile(path.join(publicDir, "index.html"), (err) => next(err));
   });
 }
-
+app.use("/api/me",meRouter)
+app.use("api/products",productRouter)
+app.use("api/stream",streamRouter)
 
 app.listen(env.PORT, () => {
   console.log("Listening on port:", env.PORT);
