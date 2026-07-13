@@ -22,6 +22,7 @@ function App() {
   return (
     <Layout>
       <Routes>
+        <Route path="/" element={<div />} />
         {/* <Route path="/" element={<HomePage />} /> */}
         {/* <Route path="/cart" element={<CartPage />} /> */}
         {/* <Route path="/product/:slug" element={<ProductDetailPage />} /> */}

@@ -16,8 +16,8 @@ export async function clerkWebhookHandler(req: Request, res: Response) {
       return;
     }
 
-    // Clerk's verifier expects a Web Request with the raw body; Express may give Buffer or string.
-    const payload = req.body instanceof Buffer ? req.body.toString("utf8") : String(req.body);
+    // Clerk's verifier expects a Web Request with the raw body; Express may give Buffer or an already-parsed object.
+    const payload = req.body instanceof Buffer ? req.body.toString("utf8") : JSON.stringify(req.body);
 
     const request = new Request("http://internal/webhooks/clerk", {
       method: "POST",
@@ -27,9 +27,11 @@ export async function clerkWebhookHandler(req: Request, res: Response) {
 
     // throws if signature is wrong or body was tampered with; only then we trust evt.
     const evt = await verifyWebhook(request, { signingSecret: env.CLERK_WEBHOOK_SECRET });
+    const u = evt.data;
+
+    console.log("Clerk webhook received", evt.type, "for", u.id);
 
     if (evt.type === "user.created" || evt.type === "user.updated") {
-      const u = evt.data;
 
       const email =
         u.email_addresses?.find((e) => e.id === u.primary_email_address_id)?.email_address ??
