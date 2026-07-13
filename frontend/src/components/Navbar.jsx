@@ -5,7 +5,7 @@ export default function Navbar() {
     <header className="navbar bg-base-100 border-b border-base-300 px-4">
       <div className="navbar-start">
         <Link to="/" className="btn btn-ghost normal-case text-xl">
-          Northwind Supply
+          E-commerce Store
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
