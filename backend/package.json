@@ -8,7 +8,7 @@
     "build": "tsc",
     "start": "node --import ./src/instrument.ts dist/index.js",
     "db:push": "drizzle-kit push",
-    "db:seed": "tsx src/db/seed.ts"
+    "db:seed": "tsx scripts/seed.ts"
   },
   "keywords": [],
   "author": "",
