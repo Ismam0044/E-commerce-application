@@ -22,7 +22,7 @@ import orderRouter from "./routes/orderRouter.js";
 
 const env = getEnv();
 const app = express();
-const rawJson = express.raw({ type: "application/json", limit: "1mb" });
+const rawJson = express.raw({ type: () => true, limit: "1mb" });
 
 app.post("/webhooks/clerk", rawJson, (req, res) => {
   void clerkWebhookHandler(req, res);
