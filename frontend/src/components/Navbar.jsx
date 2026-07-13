@@ -1,7 +1,7 @@
 import { Show, SignInButton, useAuth, UserButton } from "@clerk/react";
 import { useQuery } from "@tanstack/react-query";
 import { apiFetch } from "../lib/api";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 import {
   LogInIcon,
@@ -37,7 +37,7 @@ const Navbar = () => {
             <span className="flex size-10 items-center justify-center rounded-lg bg-primary/15 p-1 text-primary">
               <StoreIcon className="size-8" aria-hidden />
             </span>
-<span className="leading-none">E-commerce Store</span>
+            <span className="leading-none">Northwind</span>
           </Link>
         </div>
 
