@@ -11,7 +11,7 @@ import {
   ShoppingCartIcon,
   StoreIcon,
 } from "lucide-react";
-// import { useCart } from "../store/cart";
+import { useCart } from "../store/cart";
 
 const Navbar = () => {
   const { getToken, isSignedIn } = useAuth();
@@ -24,7 +24,7 @@ const Navbar = () => {
 
   const role = meData?.user?.role;
 
-  // const cartCount = useCart((s) => s.items.reduce((n, line) => n + line.quantity, 0));
+  const cartCount = useCart((s) => s.items.reduce((n, line) => n + line.quantity, 0));
 
   return (
     <header className="sticky top-0 z-50 border-b border-base-300 bg-base-100/95 shadow-sm backdrop-blur-md">
@@ -61,7 +61,7 @@ const Navbar = () => {
             ) : null}
           </Show>
 
-          {/* <Link
+          <Link
             to="/cart"
             className="btn btn-ghost gap-2 font-medium indicator"
             aria-label={cartCount > 0 ? `Cart, ${cartCount} items` : "Cart"}
@@ -73,7 +73,7 @@ const Navbar = () => {
             ) : null}
             <ShoppingCartIcon className="size-6 opacity-90" aria-hidden />
             <span className="hidden sm:inline">Cart</span>
-          </Link> */}
+          </Link>
 
           <Show when={"signed-out"}>
             <SignInButton mode="modal">
