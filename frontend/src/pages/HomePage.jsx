@@ -66,7 +66,13 @@ function HomePage() {
             ))}
           </ul>
         ) : error ? (
-          <PageError message="We couldn't load products. Please try again in a moment." />
+          <PageError
+            message={
+              error?.isNetworkError
+                ? "Cannot reach the server. Please check your connection and try again."
+                : "We couldn't load products. Please try again in a moment."
+            }
+          />
         ) : products.length === 0 ? (
           <div className="rounded-box border border-base-300 bg-base-100 py-16 text-center text-base-content/60">
             No products in this category yet.

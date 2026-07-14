@@ -14,12 +14,14 @@ export function CatalogProductCard({ product }) {
           {product.imageUrl ? (
             <img
               src={imageKitOptimizedUrl(product.imageUrl, IK_PRESETS.catalogCard)}
-              alt=""
+              alt={product.name ?? ""}
               className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
               loading="lazy"
               decoding="async"
             />
-          ) : null}
+          ) : (
+            <div className="h-full w-full bg-base-300" />
+          )}
         </figure>
         <span className="badge badge-sm absolute left-3 top-3 border-0 bg-base-100/90 text-xs font-medium text-base-content/80 backdrop-blur">
           {product.category ?? "General"}
