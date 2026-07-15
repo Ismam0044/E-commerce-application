@@ -67,8 +67,10 @@ app.use("/api/orders", orderRouter);
 Sentry.setupExpressErrorHandler(app);
 
 app.use(
-  (_err: unknown, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
+  (err: unknown, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
     const sentryId = (res as express.Response & { sentry?: string }).sentry;
+
+    console.error(err);
 
     res.status(500).json({
       error: "Internal server error",
