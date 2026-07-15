@@ -2,7 +2,7 @@ import { ChevronRightIcon, PackageIcon } from "lucide-react";
 import { OrdersListSkeleton } from "../components/LoadingSkeletons";
 import { PageError } from "../components/PageError";
 import useOrdersPage from "../hooks/useOrdersPage";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import { OrderPreview } from "../components/OrderPreview";
 import { formatOrderWhen, formatPrice } from "../utils/format";
 

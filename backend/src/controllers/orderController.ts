@@ -167,9 +167,9 @@ export async function createStreamChannel(req: Request, res: Response, next: Nex
 
     const channelId = `order-${order.id}`;
     const channel = server.channel("messaging", channelId, {
-      // name: `Support · order ${order.id.slice(0, 8)}`,
+      name: `Support · order ${order.id.slice(0, 8)}`,
       created_by_id: streamChatUserId,
-    });
+    } as any);
 
     await channel.create();
 
@@ -229,9 +229,9 @@ export async function createVideoInvite(req: Request, res: Response, next: NextF
 
     const channelId = `order-${order.id}`;
     const channel = server.channel("messaging", channelId, {
-      // name: `Support · order ${order.id.slice(0, 8)}`,
+      name: `Support · order ${order.id.slice(0, 8)}`,
       created_by_id: customerSid,
-    });
+    } as any);
 
     await channel.create();
     await channel.addMembers([customerSid, staffStreamUserId]);
@@ -241,11 +241,11 @@ export async function createVideoInvite(req: Request, res: Response, next: NextF
     await channel.sendMessage({
       text: `Video call — tap Join below (same link for everyone): ${joinUrl}`,
       user_id: staffStreamUserId,
-      // custom: {
-      //   video_invite: true,
-      //   join_url: joinUrl,
-      // },
-    });
+      customData: {
+        video_invite: true,
+        join_url: joinUrl,
+      },
+    } as any);
 
     res.json({ ok: true, joinUrl });
   } catch (e) {

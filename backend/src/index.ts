@@ -36,20 +36,6 @@ app.use(clerkMiddleware());
 app.use(sentryClerkUserMiddleware);
 app.use(cors());
 
-Sentry.setupExpressErrorHandler(app);
-
-app.use(
-  (_err: unknown, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
-    const sentryId = (res as express.Response & { sentry?: string }).sentry;
-
-    res.status(500).json({
-      error: "Internal server error",
-      ...(sentryId !== undefined && { sentryId }),
-    });
-  },
-);
-
-
 app.get("/health", (_req, res) => {
   res.json({ok:true});
 });
@@ -78,6 +64,18 @@ app.use("/api/checkout", checkoutRouter);
 app.use("/api/admin", adminRouter);
 app.use("/api/orders", orderRouter);
 
+Sentry.setupExpressErrorHandler(app);
+
+app.use(
+  (_err: unknown, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
+    const sentryId = (res as express.Response & { sentry?: string }).sentry;
+
+    res.status(500).json({
+      error: "Internal server error",
+      ...(sentryId !== undefined && { sentryId }),
+    });
+  },
+);
 
 app.listen(env.PORT, () => {
   console.log("Listening on port:", env.PORT);

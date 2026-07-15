@@ -12,12 +12,15 @@
   "dependencies": {
     "@clerk/react": "^6.12.0",
     "@sentry/react": "^10.65.0",
+    "@stream-io/video-react-sdk": "^1.39.2",
     "@tailwindcss/vite": "^4.3.2",
     "@tanstack/react-query": "^5.101.2",
     "lucide-react": "^1.24.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-router-dom": "^6.14.2",
+    "stream-chat": "^9.50.1",
+    "stream-chat-react": "^14.8.0",
     "tailwindcss": "^4.3.2",
     "zustand": "^5.0.14"
   },

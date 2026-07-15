@@ -35,12 +35,7 @@ export async function apiFetch(path, opts = {}) {
       extra: { path, method },
     });
 
-    const networkError = new Error(
-      "Cannot reach the server. Please check your connection and try again.",
-    );
-    networkError.isNetworkError = true;
-    networkError.cause = e;
-    throw networkError;
+    throw e;
   }
 
   const data = await res.json();
