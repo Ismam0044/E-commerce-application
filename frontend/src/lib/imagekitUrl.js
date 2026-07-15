@@ -22,7 +22,7 @@ const BRAND_NAME = "E-commerce Store";
  */
 function buildBrandTextLayer({ w, h }) {
   const maxDim = Math.max(w != null && w > 0 ? w : 0, h != null && h > 0 ? h : 0, 200);
-  let fs = 28;
+  let fs;
   if (maxDim <= 180) fs = 11;
   else if (maxDim <= 240) fs = 13;
   else if (maxDim <= 400) fs = 16;
