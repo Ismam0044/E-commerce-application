@@ -185,6 +185,7 @@ export async function createVideoInvite(req: Request, res: Response, next: NextF
   try {
     const { userId, isAuthenticated } = getAuth(req);
     if (!isAuthenticated || !userId) {
+      console.log("[video-invite] rejected: not authenticated");
       res.status(401).json({ error: "Unauthorized" });
       return;
     }
@@ -193,11 +194,13 @@ export async function createVideoInvite(req: Request, res: Response, next: NextF
 
     const localUser = await getLocalUser(userId);
     if (!localUser) {
+      console.log("[video-invite] rejected: local user not synced, clerkUserId=", userId);
       res.status(503).json({ error: "Account not synced yet" });
       return;
     }
 
     if (!isStaff(localUser.role)) {
+      console.log("[video-invite] rejected: not staff, role=", localUser.role);
       res.status(403).json({ error: "Only support or admin can send a video invite" });
       return;
     }
@@ -209,6 +212,12 @@ export async function createVideoInvite(req: Request, res: Response, next: NextF
       .limit(1);
 
     if (!order || order.status !== "paid") {
+      console.log(
+        "[video-invite] rejected: order not found or not paid, id=",
+        req.params.id,
+        "status=",
+        order?.status,
+      );
       res.status(404).json({ error: "Order not found or not paid" });
       return;
     }
